@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: spring-boot-localstack
+---
+spring:
+  config:
+    activate:
+      on-profile: localstack
+cloud:
+  aws:
+    sns:
+      endpoint: http://localhost:4566
+
+
