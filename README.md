@@ -37,6 +37,12 @@ O projeto tem por objetivo a realização do crud de clientes, contas e realizar
 - Tomcat (Embedded no Spring Boot)
 - OpenApi
 
+## 🖼 Arquitetura macro da Aplicação
+
+<br>
+<img src="./collection/arquitetura.png" alt="Tela Principal">
+<br>
+
 ## Execução
 
 Para executar o projeto é necessario rodar o docker compose.
