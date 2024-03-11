@@ -37,6 +37,7 @@ public class TransferUseCaseImpl implements TransferUseCase {
         Account sourceAccount = accountRepository.findByNumberAccount(sourceAccountNumber);
         Account targetAccount = accountRepository.findByNumberAccount(targetAccountNumber);
 
+        validateTransaction(sourceAccount, amount);
         // TODO: sourceAccount.withdraw(amount); Num futuro crio as use case para saque em vez de usar os getrs e seters
         sourceAccount.setBalance(sourceAccount.getBalance().subtract(amount));
 
@@ -55,6 +56,12 @@ public class TransferUseCaseImpl implements TransferUseCase {
         accountRepository.create(targetAccount);
 
         notificationSns.execute(newTransaction);
+    }
+
+    public void validateTransaction( Account  sourceAccount, BigDecimal amount ){
+        if (sourceAccount.getBalance().compareTo(amount)<0){
+            throw new RuntimeException("Saldo insuficiente");
+        }
     }
 
 }
