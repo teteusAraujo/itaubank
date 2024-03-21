@@ -2,6 +2,7 @@ package br.com.itau.itaubank.adapter.presentation;
 
 import br.com.itau.itaubank.domain.model.Customer;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +20,9 @@ public class CustomerRequest {
     @Schema(description = "CPF do cliente (apenas números)", example = "06104642307")
     private String cpf;
 
+
     @NotBlank(message = "{campo.email.obrigatorio}")
+    @Email
     @Schema(description = "Email do cliente respeitando a formatação", example = "mock@email.com")
     private String email;
 

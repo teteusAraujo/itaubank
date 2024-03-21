@@ -6,8 +6,10 @@ import br.com.itau.itaubank.application.ports.in.*;
 import br.com.itau.itaubank.domain.model.Account;
 import br.com.itau.itaubank.domain.model.Customer;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,17 +55,18 @@ public class CustomerController {
         return ResponseEntity.ok(customers);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     @Operation(summary = "Cadastra um novo cliente", description = "Retorna o cliente salvo no Body com o seu Id")
-    public ResponseEntity<CustomerResponse> create(@RequestBody CustomerRequest customerRequest){
+    public CustomerResponse create(@Valid @RequestBody CustomerRequest customerRequest){
         var domain = customerRequest.toUserDomain();
-        return ResponseEntity.ok(CustomerResponse.fromDomain(
-                createCustomerUseCase.execute(domain)));
+        return CustomerResponse.fromDomain(
+                createCustomerUseCase.execute(domain));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualiza um cliente cadastrado", description = "Retorna o cliente atualizado e salvo no Body")
-    public ResponseEntity<CustomerResponse> update(@PathVariable Long id, @RequestBody CustomerRequest customerRequest) {
+    public ResponseEntity<CustomerResponse> update(@PathVariable Long id, @Valid @RequestBody CustomerRequest customerRequest) {
         Customer updatedCustomer = updateCustomerUseCase.execute(id, customerRequest.toUserDomain());
         if (updatedCustomer != null) {
             return ResponseEntity.ok(CustomerResponse.fromDomain(updatedCustomer));

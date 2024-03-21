@@ -1,8 +1,9 @@
 package br.com.itau.itaubank.adapter.presentation;
 
 import br.com.itau.itaubank.domain.model.Account;
-import br.com.itau.itaubank.domain.model.Customer;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
